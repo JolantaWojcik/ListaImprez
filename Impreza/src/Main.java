@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Main {
@@ -17,12 +18,15 @@ public class Main {
 		
 		List<Impreza> impreza = new ArrayList<>();
 		Impreza imprezaObject = new Impreza();	
+		List<Integer> listOfCosts = new ArrayList<Integer>();
 		
 		for (int i = 0; i < 10; i++) {
 			imprezaObject.setName("jakas impreza");
 			imprezaObject.setDate("18/7/2016");
 			imprezaObject.setCost((int) (Math.random() * 10000));
 			imprezaObject.setNumberOfMembers((int) (Math.random() * 10000));
+			
+			listOfCosts.add(imprezaObject.getCost());
 		
 			impreza.add(new Impreza( imprezaObject.getName(), imprezaObject.getDate(), 
 				imprezaObject.getCost(), imprezaObject.getNumberOfMembers()));
@@ -31,17 +35,30 @@ public class Main {
 		impreza.forEach(System.out::println);
 		System.out.println("#####");
 		
-		for(int i=0; i<impreza.size()-1; i++){
-			if(impreza.get(i).getCost()>3000){
-				System.out.println("Powyzej 3000: "+ impreza.get(i));
+		//1.
+		int max = Collections.max(listOfCosts);
+		for(Impreza i : impreza){
+			if(i.getCost()==max){
+				System.out.println("Najdrozsza impreza kosztuje: "+ max);
 			}
-			if(impreza.get(i).getCost()>impreza.get(i+1).getCost()){
-				System.out.println("Najdrozsza: "+ impreza.get(i));
-			}
-		//	if(impreza.get(i).getCost()<impreza.get(i+1).getCost()){
-			//	System.out.println("Najtansza: "+ impreza.get(i));
-			//}
 		}
+		
+		//2.
+		int min = Collections.min(listOfCosts);
+		for(Impreza i : impreza){
+			if(i.getCost()==min){
+				System.out.println("Najtansza impreza kosztuje: "+ min);
+			}
+		}
+		
+		//3.
+		for(Impreza i : impreza){
+			if(i.getCost()>3000){
+				System.out.println("Powyzej 3000: "+ i.getCost() + " "+ i.getName());
+			}
+		}
+		
+		//4. 
 		impreza.removeIf(cena -> cena.getCost()>1000);
 		
 		System.out.println("#####");
